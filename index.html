@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Simple controls</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        $("#left").click(function(){
+          $.post("http://raspberrypi.local:8082/left",{}, function(response){
+                console.log("Left command executed")
+          });
+        });
+
+        $("#right").click(function(){
+          $.post("http://raspberrypi.local:8082/right",{}, function(response){
+                console.log("Right command executed")
+          });
+        });
+
+        $("#forward").click(function(){
+          $.post("http://raspberrypi.local:8082/forward",{}, function(response){
+                console.log("Forward command executed")
+          });
+        });
+
+        $("#backward").click(function(){
+          $.post("http://raspberrypi.local:8082/backward",{}, function(response){
+                console.log("Left command executed")
+          });
+        });
+
+        $("#start").click(function(){
+          $.post("http://raspberrypi.local:8082/start",{}, function(response){
+                console.log("Motor started")
+          });
+        });
+
+        $("#stop").click(function(){
+          $.post("http://raspberrypi.local:8082/stop",{}, function(response){
+                console.log("Motor stopped")
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <img src="http://raspberrypi.local:8080/stream/video.mjpeg" alt="image">
+    <br/>
+    <br/>
+    <input type="button" id="start" value="Start">
+    <input type="button" id="left" value="Left">
+    <input type="button" id="right" value="Right">
+    <input type="button" id="forward" value="Forward">
+    <input type="button" id="backward" value="Backward">
+    <input type="button" id="stop" value="Stop">
+  </body>
+</html>
