@@ -26,7 +26,7 @@ Expect costs of about 100€ and ~10 hours to install & configure it.
 <img src="_README/TODO_LAKE_VIDEO.gif" width="400">
 
 
-# Raspberry Pi Setup
+# Project Setup
 
 1. [Setup Raspberry Pi Zero W](https://michaelmuenzer.medium.com/get-started-with-your-raspberry-pi-zero-6cfc80321680)
 2. [Setup camera module](https://michaelmuenzer.medium.com/put-glasses-on-to-your-raspberry-pi-zero-8eea55eb36c9)
