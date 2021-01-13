@@ -80,12 +80,12 @@ app.post('/backward', function (req, res) {
 });
 
 app.post('/left', function (req, res) {
-    moveLeft(default_angle_step_width);
+    moveHorizontal((-1) * default_angle_step_width);
     res.end();
 });
 
 app.post('/right', function (req, res) {
-    moveRight(default_angle_step_width);
+    moveHorizontal(default_angle_step_width);
     res.end();
 });
 
@@ -147,24 +147,15 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function moveLeft(step_width) {
-    angle = angle - step_width;
-
-    angle = Math.min(angle, angle_max);
-    angle = Math.max(angle, angle_min);
-    
-    piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
-    console.log('press left: '+ angle);
-}
-
-function moveRight(step_width) {
+function moveHorizontal(step_width) {
     angle = angle + step_width;
 
     angle = Math.min(angle, angle_max);
     angle = Math.max(angle, angle_min);
     
+    console.log('move angle: ' + angle);
+    
     piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
-    console.log('press right: ' + angle);
 }
 
 // User hits Ctrl+C
