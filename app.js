@@ -70,22 +70,22 @@ app.post('/stop', function (req, res) {
 });
 
 app.post('/forward', function (req, res) {
-    moveForward(default_speed_step_width)
+    changeVelocityByStep(default_speed_step_width)
     res.end();
 });
 
 app.post('/backward', function (req, res) {
-    moveBackward(default_speed_step_width)
+    changeVelocityByStep((-1) * default_speed_step_width)
     res.end();
 });
 
 app.post('/left', function (req, res) {
-    moveHorizontal((-1) * default_angle_step_width);
+    turnAngleByDegree((-1) * default_angle_step_width);
     res.end();
 });
 
 app.post('/right', function (req, res) {
-    moveHorizontal(default_angle_step_width);
+    turnAngleByDegree(default_angle_step_width);
     res.end();
 });
 
@@ -106,32 +106,24 @@ function stop() {
     piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
 }
 
-function moveForward(step_width) {
-    speed = speed + step_width;
-
-    speed = Math.min(speed, speed_max);
-    speed = Math.max(speed, speed_min);
-
-    console.log('move forward: ' + speed);
-
-    piblaster.setPwm(motor_pwm_pin, speed2pwm(speed));
+function changeVelocityByStep(step_width) {
+    setSpeed(speed + step_width);
 }
 
-function moveBackward(step_width) {
+function setSpeed(new_speed) {
     var prev_speed = speed;
-    speed = speed - step_width;
-    
+    speed = new_speed;
     speed = Math.min(speed, speed_max);
     speed = Math.max(speed, speed_min);
 
-    console.log('move backward: ' + speed);
-    
+    console.log('set speed: ' + speed);
+
     piblaster.setPwm(motor_pwm_pin, speed2pwm(speed));
 
-    // Double-click procedure.
+    // Double-click procedure for moving backward.
     // Can also be done manually, depending on your preference and need
-    if (prev_speed == 0) {
-      runDoubleClickProcedure();
+    if (prev_speed >= 0 && new_speed < 0) {
+        runDoubleClickProcedure();
     }
 }
 
@@ -147,14 +139,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function moveHorizontal(step_width) {
-    angle = angle + step_width;
+function turnAngleByDegree(step_width) {
+    setAngle(angle + step_width)
+}
 
+function setAngle(new_angle) {
+    angle = new_angle;
     angle = Math.min(angle, angle_max);
     angle = Math.max(angle, angle_min);
     
     console.log('move angle: ' + angle);
-    
+
     piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
 }
 
@@ -166,6 +161,8 @@ process.on('SIGINT', function() {
     return process.exit();
 });
 
+var normalized_min = -1;
+var normalized_max = 1;
 var ws_port=3002;
 var user_id;
 var wss = require("ws").Server({server: server, port: ws_port});
@@ -193,13 +190,19 @@ wss.on("connection", function (ws) {
                 var angle_str = client_message.split(":")[1].trim();
                 console.log("normalized angle: " + angle_str);
                 normalized_angle = parseFloat(angle_str);
-                //TODO: Convert normalized value to angle and pass on
+                if(isNormalizationCorrect(normalized_angle)) {
+                    var angle = denormalize(normalized_angle, angle_min, angle_max);
+                    setAngle(angle);
+                }
             } 
             else if (client_message.indexOf("speed:") == 0){
                 var speed_str = client_message.split(":")[1].trim();
                 console.log("normalized speed: " + speed_str);
                 normalized_speed = parseFloat(speed_str);
-                //TODO: Convert normalized value to speed and pass on
+                if(isNormalizationCorrect(normalized_speed)) {
+                    var speed = denormalize(normalized_speed, angle_min, angle_max);
+                    setSpeed(speed)
+                }
             }
         }
 
@@ -212,3 +215,22 @@ wss.on("connection", function (ws) {
     });
 });
 console.log("Websocket server created");
+
+function denormalize(normalized, min, max) {
+    denormalized = 0
+    if (normalized > 0) {
+        denormalized = (normalized * (max - min) + min);
+    } else if (normalized < 0) {
+        denormalized = (normalized * (max - min) - min);
+    }
+
+	return denormalized;
+}
+
+function isNormalizationCorrect(normalized_value) {
+    if (normalized_value >= normalized_min && normalized_value <= normalized_max) {
+        return true;
+    }
+
+    return false;
+}
