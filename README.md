@@ -5,6 +5,7 @@ Replace a standard remote control for RC boats with:
   * Control through a webpage with:
     * RC control buttons (forward, backward, left, right)
     * Onboard video streaming 
+  * Alternatively control via websocket connection
  
 Based on:
   * Raspberry Pi web server, controlling onboard GPIO/Servo/Motor & Camera

@@ -165,7 +165,12 @@ var normalized_min = -1;
 var normalized_max = 1;
 var ws_port=3002;
 var user_id;
-var wss = require("ws").Server({server: server, port: ws_port});
+const ws = require("ws");
+const wss = new ws.Server({
+    server: server,
+    port: ws_port
+});
+
 wss.on("connection", function (ws) {
 
     console.log("Websocket connection opened");
@@ -217,14 +222,7 @@ wss.on("connection", function (ws) {
 console.log("Websocket server created");
 
 function denormalize(normalized, min, max) {
-    denormalized = 0
-    if (normalized > 0) {
-        denormalized = (normalized * (max - min) + min);
-    } else if (normalized < 0) {
-        denormalized = (normalized * (max - min) - min);
-    }
-
-	return denormalized;
+    return (normalized * ((Math.abs(max) + Math.abs(min)) / 2));
 }
 
 function isNormalizationCorrect(normalized_value) {
