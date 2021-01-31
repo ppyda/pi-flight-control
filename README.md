@@ -12,19 +12,17 @@ Based on:
   * Onboard video streaming is accessible for anybody connected to open PiBoat wifi
   * NodeJS with pi-blaster
 
-This guide was written for beginers (in Raspberry, GPIO, Servo, ...) with detailed instructions.
+This guide was written for beginners (in Raspberry, GPIO, Servo, ...) with detailed instructions.
 Expect costs of about 100€ and ~10 hours to install & configure it.
 
 
 # Result
 
 <table><tr><td>
-<img src="_README/TODO_TUBE.jpg" width="400">
+<img src="_README/boat.jpg" width="400">
 </td><td>
-<img src="_README/TODO_LAKE.jpg" width="400">
-</td></tr></table>
 
-<img src="_README/TODO_LAKE_VIDEO.gif" width="400">
+<!--img src="_README/TODO_LAKE_VIDEO.gif" width="400"-->
 
 
 # Project Setup
@@ -32,8 +30,9 @@ Expect costs of about 100€ and ~10 hours to install & configure it.
 1. [Setup Raspberry Pi Zero W](https://michaelmuenzer.medium.com/get-started-with-your-raspberry-pi-zero-6cfc80321680)
 2. [Setup camera module](https://michaelmuenzer.medium.com/put-glasses-on-to-your-raspberry-pi-zero-8eea55eb36c9)
 3. [Connect pi-blaster and ESC](https://michaelmuenzer.medium.com/use-pi-blaster-to-run-esc-and-servo-motor-from-a-raspberry-pi-38aa1c7a1e6e)
-5. [Control boat from within the web-browser](https://michaelmuenzer.medium.com/control-a-raspberry-powered-rc-boat-from-within-the-web-browser-aaab1e84e1a9)
-4. Setup Wifi AP
+4. [Control boat from within the web-browser via REST](https://michaelmuenzer.medium.com/control-a-raspberry-powered-rc-boat-from-within-the-web-browser-aaab1e84e1a9)
+5. Control boat from an iOS app via websockets
+6. Setup Wifi AP
 
 
 # Use it
