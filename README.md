@@ -18,12 +18,8 @@ Expect costs of about 100€ and ~10 hours to install & configure it.
 
 # Result
 
-<table><tr><td>
 <img src="_README/boat.jpg" width="400">
-</td><td>
-
 <!--img src="_README/TODO_LAKE_VIDEO.gif" width="400"-->
-
 
 # Project Setup
 
