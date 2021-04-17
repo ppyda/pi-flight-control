@@ -10,4 +10,4 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-/usr/bin/node /home/pi/PiCruise/app.js > /home/pi/PiCruise/PiCruise.log
+/usr/bin/node /home/pi/picruise/app.js > /home/pi/picruise/PiCruise.log
