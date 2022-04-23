@@ -1,19 +1,10 @@
-var express = require('express'),
-    app = express(),
-    server = require('http').Server(app),
-    piblaster = require('pi-blaster.js'),
-    ip = require("ip");
+var piblaster = require('pi-blaster.js');
+const ws = require('ws');
+const express = require('express');
 
-app.use(express.static(__dirname + '/'));
-app.set('view engine', 'html');
+const app = express();
 
-var app_port=8082;
-app.get('/', function(req, res) {
-    res.render(__dirname + '/index.html', { localip: ip.address() });
-});
-app.listen(app_port);
-
-console.log('Web server listening, visit http://' + ip.address() + ':' + app_port);
+app.use(express.static(__dirname)); //Serves resources from ui folder  
 
 var motor_pwm_pin = 17;
 var pwm_motor_init = 0.16;                           // neutral position
@@ -57,6 +48,61 @@ function angle2pwm(a) {
     return pwm;
 }
 
+function turnAngleByDegree(step_width) {
+    setAngle(angle + step_width)
+}
+
+function setAngle(new_angle) {
+    angle = new_angle;
+    angle = Math.min(angle, angle_max);
+    angle = Math.max(angle, angle_min);
+    
+    console.log('move angle: ' + angle);
+
+    piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
+}
+
+// headless websocket server that prints any messages that come in.
+const wsServer = new ws.Server({ noServer: true });
+wsServer.on('connection', socket => {
+    socket.on('message', (message, isBinary) => {
+        let payload = isBinary ? message : message.toString();
+        let input = JSON.parse(payload);
+
+        console.log(input);
+
+        if (input.key === 'P') {
+            socket.send('P received');
+            setAngle(-45);
+        }
+        
+        if (input.key === 'O') {
+            socket.send('O received');
+            setAngle(45);
+        }
+        
+        if (input.key === 'I') {
+            socket.send('I received');
+            setAngle(0);
+        }
+
+    });
+});
+
+// `server` is a vanilla Node.js HTTP server, so use
+// the same ws upgrade process described here:
+// https://www.npmjs.com/package/ws#multiple-servers-sharing-a-single-https-server
+const server = app.listen(3000, 'localhost', () => {
+    console.log('Server is up.')
+});
+server.on('upgrade', (request, socket, head) => {
+    console.log('WS connection is up.')
+    wsServer.handleUpgrade(request, socket, head, socket => {
+        wsServer.emit('connection', socket, request);
+    });
+});  
+
+/*
 // Main POST control
 
 app.post('/start', function (req, res) {
@@ -232,3 +278,4 @@ function isNormalizationCorrect(normalized_value) {
 
     return false;
 }
+*/
