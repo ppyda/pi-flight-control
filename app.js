@@ -37,9 +37,9 @@ var pwm_servo_min = 0.05;
 var pwm_servo_max = 0.15;
 
 var angle = 0;
-var default_angle_step_width = 15;
-var angle_min = -45;
-var angle_max = 45;
+//var default_angle_step_width = 15;
+var angle_min = -90;
+var angle_max = 90;
 
 function angle2pwm(a) {
     pwm = pwm_servo_min + (pwm_servo_max - pwm_servo_min) * (a + 45) / 90;
@@ -71,19 +71,23 @@ wsServer.on('connection', socket => {
 
         console.log(input);
 
-        if (input.key === 'P') {
-            socket.send('P received');
-            setAngle(-45);
-        }
+        // if (input.key === 'P') {
+        //     socket.send('P received');
+        //     setAngle(-45);
+        // }
         
-        if (input.key === 'O') {
-            socket.send('O received');
-            setAngle(45);
-        }
+        // if (input.key === 'O') {
+        //     socket.send('O received');
+        //     setAngle(45);
+        // }
         
-        if (input.key === 'I') {
-            socket.send('I received');
-            setAngle(0);
+        // if (input.key === 'I') {
+        //     socket.send('I received');
+        //     setAngle(0);
+        // }
+
+        if (input.axis === 0) {
+            setAngle(input.value * 90);
         }
 
     });
