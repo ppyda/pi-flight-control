@@ -71,20 +71,20 @@ wsServer.on('connection', socket => {
 
         console.log(input);
 
-        // if (input.key === 'P') {
-        //     socket.send('P received');
-        //     setAngle(-45);
-        // }
+        if (input.key === 'p') {
+            socket.send('P received');
+            setAngle(-45);
+        }
         
-        // if (input.key === 'O') {
-        //     socket.send('O received');
-        //     setAngle(45);
-        // }
+        if (input.key === 'o') {
+            socket.send('O received');
+            setAngle(45);
+        }
         
-        // if (input.key === 'I') {
-        //     socket.send('I received');
-        //     setAngle(0);
-        // }
+        if (input.key === 'i') {
+            socket.send('i received');
+            setAngle(0);
+        }
 
         if (input.axis === 0) {
             let angle = input.value * 45;
