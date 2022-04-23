@@ -1,7 +1,7 @@
 <html>
   <head>
     <script type="text/javascript">
-      const ws = new WebSocket('ws://localhost:3000');
+      const ws = new WebSocket('ws://192.168.1.118:3000/');
 
       ws.onopen = function() {
         console.log('WS connection open');
@@ -117,7 +117,8 @@
                   }));
               }
           }
-          rAF(updateStatus);
+          setTimeout(updateStatus, 16);
+          //rAF(updateStatus);
       }
       function scangamepads() {
           var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
