@@ -31,7 +31,7 @@ function speed2pwm(s) {
     return pwm;
 }
 
-var servo_pwm_pin = 18;
+var servo_pwm_pin = 4;
 var pwm_servo_min = 0.05;
 //var pwm_servo_neutral = 0.1;
 var pwm_servo_max = 0.15;
