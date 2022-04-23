@@ -122,8 +122,8 @@
                     }));
                 }
             }
-            //setTimeout(updateStatus, 16);
-            rAF(updateStatus);
+            setTimeout(updateStatus, 16);
+            //rAF(updateStatus);
         }
         function scangamepads() {
             var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
