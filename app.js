@@ -54,7 +54,7 @@ function turnAngleByDegree(step_width) {
 }
 
 function setAngle(new_angle) {
-    angle = new_angle;
+    angle = Math.round(new_angle);
     angle = Math.min(angle, angle_max);
     angle = Math.max(angle, angle_min);
     
@@ -88,8 +88,8 @@ wsServer.on('connection', socket => {
             setAngle(90);
         }
 
-        if (input.axis === 'X') {
-            let angle = input.value * 90;
+        if (input.axis === '1') {
+            let angle = parseFloat(input.value) * 90;
             setAngle(angle);
         }
 
