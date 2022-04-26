@@ -43,7 +43,7 @@ var angle_min = -90;
 var angle_max = 90;
 
 function angle2pwm(a) {
-    pwm = pwm_servo_min + (pwm_servo_max - pwm_servo_min) * (a + 90) / 180;
+    pwm = Math.round(pwm_servo_min + (pwm_servo_max - pwm_servo_min) * (a + 90) / 180);
     
     console.log('angle pwm:' + pwm);
     return pwm;
@@ -54,7 +54,7 @@ function turnAngleByDegree(step_width) {
 }
 
 function setAngle(new_angle) {
-    angle = Math.round(new_angle);
+    angle = new_angle;
     angle = Math.min(angle, angle_max);
     angle = Math.max(angle, angle_min);
     
