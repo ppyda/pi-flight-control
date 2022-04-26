@@ -88,7 +88,7 @@ wsServer.on('connection', socket => {
             setAngle(90);
         }
 
-        if (input.axis === '1') {
+        if (input.axis === '0') {
             let angle = parseFloat(input.value) * 90;
             setAngle(angle);
         }
