@@ -31,6 +31,8 @@ app.use(express.static(__dirname)); //Serves resources from ui folder
 //     return pwm;
 // }
 
+let Servo1 = new Gpio(18, {mode: Gpio.OUTPUT});
+
 var servo_pwm_pin = 18;
 var pwm_servo_min = 500;
 var pwm_servo_neutral = 1500;
@@ -58,7 +60,7 @@ function setAngle(new_angle) {
     
     console.log('move angle: ' + angle);
 
-    piblaster.setPwm(servo_pwm_pin, angle2pwm(angle));
+    Servo1.servoWrite(angle2pwm(angle));
 }
 
 // headless websocket server that prints any messages that come in.
