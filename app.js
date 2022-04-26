@@ -1,4 +1,4 @@
-var piblaster = require('pi-blaster.js');
+const Gpio = require('pigpio').Gpio;
 const ws = require('ws');
 const express = require('express');
 
@@ -6,43 +6,42 @@ const app = express();
 
 app.use(express.static(__dirname)); //Serves resources from ui folder  
 
-var motor_pwm_pin = 17;
-var pwm_motor_init = 0.16;                           // neutral position
-var pwm_motor_min = pwm_motor_init / 2;              // max backward capacity
-var pwm_motor_max = pwm_motor_init + pwm_motor_min;  // max forward capacity
+// var motor_pwm_pin = 17;
+// var pwm_motor_init = 0.16;                           // neutral position
+// var pwm_motor_min = pwm_motor_init / 2;              // max backward capacity
+// var pwm_motor_max = pwm_motor_init + pwm_motor_min;  // max forward capacity
 
-var pwm_motor_off = 0.0;
-var pwm_motor_min_limit = 0.1; // move backward slower than possible
-var pwm_motor_max_limit = 0.2; // move forward slower than possible
+// var pwm_motor_off = 0.0;
+// var pwm_motor_min_limit = 0.1; // move backward slower than possible
+// var pwm_motor_max_limit = 0.2; // move forward slower than possible
 
-var speed = 0;                                   // neutral position
-var default_speed_step_width = 1;
-var speed_num_steps = 20;
-var speed_min = (-1) * speed_num_steps / 2;      // max steps backward
-var speed_max = speed_num_steps / 2;             // max steps forward
+// var speed = 0;                                   // neutral position
+// var default_speed_step_width = 1;
+// var speed_num_steps = 20;
+// var speed_min = (-1) * speed_num_steps / 2;      // max steps backward
+// var speed_max = speed_num_steps / 2;             // max steps forward
 
-function speed2pwm(s) { 
-    pwm = pwm_motor_min + ((pwm_motor_max - pwm_motor_min) * ((s + speed_max) / speed_num_steps));
+// function speed2pwm(s) { 
+//     pwm = pwm_motor_min + ((pwm_motor_max - pwm_motor_min) * ((s + speed_max) / speed_num_steps));
 
-    pwm = Math.min(pwm, pwm_motor_max_limit);
-    pwm = Math.max(pwm, pwm_motor_min_limit);
+//     pwm = Math.min(pwm, pwm_motor_max_limit);
+//     pwm = Math.max(pwm, pwm_motor_min_limit);
 
-    console.log('speed pwm: ' + pwm);
-    return pwm;
-}
+//     console.log('speed pwm: ' + pwm);
+//     return pwm;
+// }
 
-var servo_pwm_pin = 4;
-var pwm_servo_min = 0.05;
-//var pwm_servo_neutral = 0.1;
-var pwm_servo_max = 0.15;
+var servo_pwm_pin = 18;
+var pwm_servo_min = 500;
+var pwm_servo_neutral = 1500;
+var pwm_servo_max = 2500;
 
 var angle = 0;
-//var default_angle_step_width = 15;
-var angle_min = -45;
-var angle_max = 45;
+var angle_min = -90;
+var angle_max = 90;
 
 function angle2pwm(a) {
-    pwm = pwm_servo_min + (pwm_servo_max - pwm_servo_min) * (a + 45) / 90;
+    pwm = pwm_servo_min + (pwm_servo_max - pwm_servo_min) * (a + 90) / 180;
     
     console.log('angle pwm:' + pwm);
     return pwm;
@@ -73,22 +72,22 @@ wsServer.on('connection', socket => {
 
         if (input.key === 'p') {
             socket.send('P received');
-            setAngle(-45);
+            setAngle(-90);
+            
         }
         
         if (input.key === 'o') {
             socket.send('O received');
-            setAngle(45);
+            setAngle(0);
         }
         
         if (input.key === 'i') {
             socket.send('i received');
-            setAngle(0);
+            setAngle(90);
         }
 
         if (input.axis === 0) {
-            let angle = input.value * 45;
-            console.log('Angle: ' + angle);
+            let angle = input.value * 90;
             setAngle(angle);
         }
 
