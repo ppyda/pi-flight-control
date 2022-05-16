@@ -82,6 +82,18 @@ function setAngle(new_angle, oServo) {
 // headless websocket server that prints any messages that come in.
 const wsServer = new ws.Server({ noServer: true });
 wsServer.on('connection', socket => {
+
+    setTimeout(Motor1.servoWrite(2000), 100);
+    setTimeout(console.log('Connect Bettery now'), 110);
+    
+    setTimeout(Motor1.servoWrite(700), 3000);
+    
+    setTimeout(Motor1.servoWrite(0), 6000);
+    
+    setTimeout(Motor1.servoWrite(700), 9000);
+    
+    setTimeout(console.log('ESC should be armed now'), 1000);
+
     socket.on('message', (message, isBinary) => {
         let payload = isBinary ? message : message.toString();
         let input = JSON.parse(payload);
