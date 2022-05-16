@@ -86,11 +86,11 @@ class Motor {
     }
 
     setSpeed = (iSpeed) => {
-        let iSpeed = iSpeed;
-        iSpeed = Math.min(iSpeed, 1.0);
-        iSpeed = Math.max(iSpeed, 0.0);
+        let iThrottle = iSpeed;
+        iThrottle = Math.min(iSpeed, 1.0);
+        iThrottle = Math.max(iSpeed, 0.0);
 
-        let iThrottle = Math.round(this.MINIMUM_PWM_TROTTLE + (this.MAXIMUM_PWM_TROTTLE - this.MINIMUM_PWM_TROTTLE) * iSpeed );
+        iThrottle = Math.round(this.MINIMUM_PWM_TROTTLE + (this.MAXIMUM_PWM_TROTTLE - this.MINIMUM_PWM_TROTTLE) * iThrottle );
         
         this._oGpio.servoWrite(iThrottle);
     }
