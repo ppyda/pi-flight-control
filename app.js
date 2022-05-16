@@ -128,18 +128,18 @@ wsServer.on('connection', socket => {
 
         if (input.key === 'p') {
             socket.send('P received');
-            setAngle(-90);
+            //setAngle(-90);
             
         }
         
         if (input.key === 'o') {
             socket.send('O received');
-            setAngle(0);
+            //setAngle(0);
         }
         
         if (input.key === 'i') {
             socket.send('i received');
-            setAngle(90);
+            //setAngle(90);
         }
 
         if (input.axis === 0) {
@@ -152,8 +152,8 @@ wsServer.on('connection', socket => {
         }
 
         if (input.axis === 6) {
-            oMotorCW.setSpeed( 1- parseFloat(input.value));
-            oMotorCCW.setSpeed(1 - parseFloat(input.value));
+            oMotorCW.setSpeed( 1 - parseFloat(input.value));
+            oMotorCCW.setSpeed( 1 - parseFloat(input.value));
         }
 
     });

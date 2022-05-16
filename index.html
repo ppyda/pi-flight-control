@@ -89,7 +89,6 @@
                 var controller = controllers[j];
                 var d = document.getElementById("controller" + j);
                 var buttons = d.getElementsByClassName("button");
-                aButtons = [];
                 for (var i = 0; i < controller.buttons.length; i++) {
                     var b = buttons[i];
                     var val = controller.buttons[i];
@@ -113,23 +112,14 @@
                     }
                 }
                 var axes = d.getElementsByClassName("axis");
-                //let aAxes = [];
                 for (var i = 0; i < controller.axes.length; i++) {
                     var a = axes[i];
                     a.innerHTML = i + ": " + controller.axes[i].toFixed(4);
                     a.setAttribute("value", controller.axes[i]);
-                    if (i === 0 || i === 1 || i === 6) {
-                        // aAxes.push({
-                        //     iAxis: i,
-                        //     iValue: controller.axes[i].toFixed(4)
-                        // })
-                        ws.send(JSON.stringify({
-                            axis: i,
-                            value: controller.axes[i].toFixed(4)
-                        }));
-                    }
-                    
-                    /**/
+                    ws.send(JSON.stringify({
+                        axis: i,
+                        value: controller.axes[i].toFixed(4)
+                    }));
                 }
             }
             setTimeout(updateStatus, 16);
