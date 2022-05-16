@@ -10,7 +10,7 @@ app.use(express.static(__dirname)); //Serves resources from ui folder
 
 function ServoSG90 (oGpio, iAngleRange) {
     this._oGpio = oGpio;
-    this.iAngleRange = iAngleRange;
+    this.iAngleRange = 45;
     this.iNeutralAngleOffset = 0;
     this.iMinimumAngle = -1 * iAngleRange;
     this.iMaximumAngle =  1 * iAngleRange;
@@ -33,7 +33,7 @@ ServoSG90.prototype.setAngle = function (iAngle) {
     
     console.log('ANGLE: ' + iAngle);
 
-    this._oGpio.servoWrite(this._convertAngleToPwm(iAngle));
+    //this._oGpio.servoWrite(this._convertAngleToPwm(iAngle));
 }
 
 /*class ServoSG90 {
