@@ -20,11 +20,11 @@ class ServoSG90 {
         this.iNeutralAngleOffset = 0;
     }
 
-    get getMinimumAngle() {
+    getMinimumAngle = () => {
         return -1 * this.iAngleRange;
     }
 
-    get getMaximumAngle() {
+    getMaximumAngle = () => {
         return this.iAngleRange;
     }
 
