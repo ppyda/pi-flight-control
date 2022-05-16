@@ -151,9 +151,9 @@ wsServer.on('connection', socket => {
             oStabilisatorElevatorServo.setAngle(parseFloat(input.value) * oLeftWingElevatorServo.iAngleRange);
         }
 
-        if (input.axis === 2) {
-            oMotorCW.setSpeed(parseFloat(input.value));
-            oMotorCCW.setSpeed(parseFloat(input.value));
+        if (input.axis === 6) {
+            oMotorCW.setSpeed( 1- parseFloat(input.value));
+            oMotorCCW.setSpeed(1 - parseFloat(input.value));
         }
 
     });

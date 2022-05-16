@@ -113,19 +113,23 @@
                     }
                 }
                 var axes = d.getElementsByClassName("axis");
-                let aAxes = [];
+                //let aAxes = [];
                 for (var i = 0; i < controller.axes.length; i++) {
                     var a = axes[i];
                     a.innerHTML = i + ": " + controller.axes[i].toFixed(4);
                     a.setAttribute("value", controller.axes[i]);
-                    aAxes.push({
-                        iAxis: i,
-                        iValue: controller.axes[i].toFixed(4)
-                    })
-                    /*ws.send(JSON.stringify({
-                        axis: i,
-                        value: controller.axes[i].toFixed(4)
-                    }));*/
+                    if (i === 0 || i === 1 || i === 6) {
+                        // aAxes.push({
+                        //     iAxis: i,
+                        //     iValue: controller.axes[i].toFixed(4)
+                        // })
+                        ws.send(JSON.stringify({
+                            axis: i,
+                            value: controller.axes[i].toFixed(4)
+                        }));
+                    }
+                    
+                    /**/
                 }
             }
             setTimeout(updateStatus, 16);
