@@ -52,7 +52,7 @@ function angle2pwm(a) {
 }
 
 function turnAngleByDegree(step_width) {
-    setAngle(angle + step_width)
+    //setAngle(angle + step_width)
 }
 
 function setAngle(new_angle, oServo) {
@@ -103,7 +103,7 @@ wsServer.on('connection', socket => {
 
         if (input.axis === 6) {
             let angle = parseFloat(input.value) * 90;
-            setAngle(angle);
+            //setAngle(angle);
         }
 
     });
