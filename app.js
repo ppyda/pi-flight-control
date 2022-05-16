@@ -8,7 +8,34 @@ const app = express();
 
 app.use(express.static(__dirname)); //Serves resources from ui folder  
 
-class ServoSG90 {
+function ServoSG90 (oGpio, iAngleRange) {
+    this._oGpio = oGpio;
+    this.iAngleRange = iAngleRange;
+    this.iNeutralAngleOffset = 0;
+    this.iMinimumAngle = -1 * iAngleRange;
+    this.iMaximumAngle =  1 * iAngleRange;
+    this.MINIMUM_PWM = 500;
+    this.MAXIMUM_PWM = 2500;
+    this.NEUTRAL_PWM = 1500;
+}
+
+ServoSG90.prototype._convertAngleToPwm = function(iAngle) {
+    let iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (this.iMaximumAngle - this.iMinimumAngle));
+    //console.log('angle pwm:' + iPwm);
+    return iPwm;
+}
+
+ServoSG90.prototype.setAngle = function (iAngle) {
+    iAngle = iAngle + this.iNeutralAngleOffset;
+    iAngle = Math.min(iAngle, this.MAXIUMUM_ANGLE);
+    iAngle = Math.max(iAngle, this.MINIMUM_ANGLE);
+    
+    console.log('ANGLE: ' + iAngle);
+
+    this._oGpio.servoWrite(this._convertAngleToPwm(iAngle));
+}
+
+/*class ServoSG90 {
 
     MINIMUM_PWM = 500;
     MAXIMUM_PWM = 2500;
@@ -32,7 +59,7 @@ class ServoSG90 {
         this.iNeutralAngleOffset = iOffset;
     }
 
-    _convertAngleToPwm = (iAngle) => {
+    _convertAngleToPwm = function(iAngle) {
         let iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (this.iMaximumAngle - this.iMinimumAngle));
         //console.log('angle pwm:' + iPwm);
         return iPwm;
