@@ -104,12 +104,12 @@ class Motor {
 
 const GPIO_OPTIONS = {mode: Gpio.OUTPUT};
 
-let oLeftWingElevatorServo = new ServoSG90(new Gpio(18, GPIO_OPTIONS));
-let oRightWingElevatorServo = new ServoSG90(new Gpio(18, GPIO_OPTIONS));
-let oStabilisatorElevatorServo = new ServoSG90(new Gpio(18, GPIO_OPTIONS));
-let oAirBrakeServo = new ServoSG90(new Gpio(18, GPIO_OPTIONS));
+let oLeftWingElevatorServo = new ServoSG90(new Gpio(22, GPIO_OPTIONS), 20);
+let oRightWingElevatorServo = new ServoSG90(new Gpio(23, GPIO_OPTIONS), 20);
+let oStabilisatorElevatorServo = new ServoSG90(new Gpio(24, GPIO_OPTIONS), 40);
+//let oAirBrakeServo = new ServoSG90(new Gpio(4, GPIO_OPTIONS));
 
-let oMotorCW = new Motor(new Gpio(18, GPIO_OPTIONS));
+let oMotorCW = new Motor(new Gpio(17, GPIO_OPTIONS));
 let oMotorCCW = new Motor(new Gpio(18, GPIO_OPTIONS))
 
 
