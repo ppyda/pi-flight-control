@@ -89,6 +89,7 @@
                 var controller = controllers[j];
                 var d = document.getElementById("controller" + j);
                 var buttons = d.getElementsByClassName("button");
+                aButtons = [];
                 for (var i = 0; i < controller.buttons.length; i++) {
                     var b = buttons[i];
                     var val = controller.buttons[i];
@@ -112,14 +113,19 @@
                     }
                 }
                 var axes = d.getElementsByClassName("axis");
-                for (var i = 0; i < 1 /*controller.axes.length*/; i++) {
+                let aAxes = [];
+                for (var i = 0; i < controller.axes.length; i++) {
                     var a = axes[i];
                     a.innerHTML = i + ": " + controller.axes[i].toFixed(4);
                     a.setAttribute("value", controller.axes[i]);
-                    ws.send(JSON.stringify({
+                    aAxes.push({
+                        iAxis: i,
+                        iValue: controller.axes[i].toFixed(4)
+                    })
+                    /*ws.send(JSON.stringify({
                         axis: i,
                         value: controller.axes[i].toFixed(4)
-                    }));
+                    }));*/
                 }
             }
             setTimeout(updateStatus, 16);
@@ -146,7 +152,7 @@
 </head>
 
 <body>
-    <h1>flight cockpit</h1>
+    <h1>SU-27 Remote Control</h1>
     <style>
         .axes {
             padding: 1em;
@@ -192,7 +198,7 @@
     </head>
 
     <body>
-        <h2 id="start">Press a button on your controller to start</h2>
+        <h2 id="start">Press a button on the joystick to start</h2>
         <!-- <img src="http://raspberrypi.local:8080/stream/video.mjpeg" alt="image"> -->
     </body>
 
