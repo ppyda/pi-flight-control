@@ -39,7 +39,7 @@ class ServoSG90 {
     }
 
     _convertAngleToPwm = (iAngle) => {
-        iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (this.getMaximumAngle() - this.getMinimumAngle()));
+        iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (getMaximumAngle() - getMinimumAngle()));
         //console.log('angle pwm:' + iPwm);
         return iPwm;
     }
