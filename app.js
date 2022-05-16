@@ -35,6 +35,8 @@ let Servo1 = new Gpio(22, {mode: Gpio.OUTPUT});
 let Servo2 = new Gpio(23, {mode: Gpio.OUTPUT});
 let Servo3 = new Gpio(24, {mode: Gpio.OUTPUT});
 
+let Motor1 = new Gpio(17, {mode: Gpio.OUTPUT});
+
 var servo_pwm_pin = 18;
 var pwm_servo_min = 500;
 var pwm_servo_neutral = 1500;
@@ -93,7 +95,7 @@ wsServer.on('connection', socket => {
         if (input.axis === 0) {
             let angle = parseFloat(input.value) * 90;
             setAngle(angle, Servo1);
-            setAngle(angle * -1 , Servo2);
+            setAngle(angle, Servo2);
         }
 
         if (input.axis === 1) {
