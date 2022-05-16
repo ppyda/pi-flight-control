@@ -39,7 +39,7 @@ class ServoSG90 {
     }
 
     _convertAngleToPwm = (iAngle) => {
-        iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (getMaximumAngle() - getMinimumAngle()));
+        let iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (getMaximumAngle() - getMinimumAngle()));
         //console.log('angle pwm:' + iPwm);
         return iPwm;
     }
@@ -92,11 +92,11 @@ class Motor {
     }
 
     setSpeed = (iSpeed) => {
-        iSpeed = iSpeed;
+        let iSpeed = iSpeed;
         iSpeed = Math.min(iSpeed, 1.0);
         iSpeed = Math.max(iSpeed, 0.0);
 
-        iThrottle = Math.round(this.MINIMUM_PWM_TROTTLE + (this.MAXIMUM_PWM_TROTTLE - this.MINIMUM_PWM_TROTTLE) * iSpeed );
+        let iThrottle = Math.round(this.MINIMUM_PWM_TROTTLE + (this.MAXIMUM_PWM_TROTTLE - this.MINIMUM_PWM_TROTTLE) * iSpeed );
         
         this._oGpio.servoWrite(iThrottle);
     }
