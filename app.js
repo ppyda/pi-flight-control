@@ -26,7 +26,8 @@ ServoSG90.prototype._convertAngleToPwm = function(iAngle) {
 }
 
 ServoSG90.prototype.setAngle = function (iAngle) {
-    iAngle = iAngle + this.iNeutralAngleOffset;
+    //iAngle = iAngle + this.iNeutralAngleOffset;
+    let iAngleRanged = iAngle * this.iAngleRange;
     iAngle = Math.min(iAngle, this.MAXIUMUM_ANGLE);
     iAngle = Math.max(iAngle, this.MINIMUM_ANGLE);
     
@@ -166,12 +167,12 @@ wsServer.on('connection', socket => {
         }
 
         if (input.axis === 0) {
-            oLeftWingElevatorServo.setAngle(parseFloat(input.value) * oLeftWingElevatorServo.iAngleRange);
-            oRightWingElevatorServo.setAngle(parseFloat(input.value) * oLeftWingElevatorServo.iAngleRange);
+            oLeftWingElevatorServo.setAngle(parseFloat(input.value));
+            oRightWingElevatorServo.setAngle(parseFloat(input.value));
         }
 
         if (input.axis === 1) {
-            oStabilisatorElevatorServo.setAngle(parseFloat(input.value) * oLeftWingElevatorServo.iAngleRange);
+            oStabilisatorElevatorServo.setAngle(parseFloat(input.value));
         }
 
         if (input.axis === 6) {
