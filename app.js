@@ -43,9 +43,9 @@ class ServoSG90 {
         iAngle = Math.min(iAngle, this.MAXIUMUM_ANGLE);
         iAngle = Math.max(iAngle, this.MINIMUM_ANGLE);
         
-        //console.log('move angle: ' + angle);
+        console.log('ANGLE: ' + iAngle);
 
-        this._oGpio.servoWrite(this._convertAngleToPwm(iAngle));
+        //this._oGpio.servoWrite(this._convertAngleToPwm(iAngle));
     }
 }
 
@@ -92,7 +92,9 @@ class Motor {
 
         iThrottle = Math.round(this.MINIMUM_PWM_TROTTLE + (this.MAXIMUM_PWM_TROTTLE - this.MINIMUM_PWM_TROTTLE) * iThrottle );
         
-        this._oGpio.servoWrite(iThrottle);
+        console.log('THROTTLE: ' + iThrottle);
+
+        //this._oGpio.servoWrite(iThrottle);
     }
 }
 
