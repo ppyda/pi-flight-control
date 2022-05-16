@@ -130,7 +130,7 @@ const GPIO_OPTIONS = {mode: Gpio.OUTPUT};
 
 let oLeftWingElevatorServo = new ServoSG90(new Gpio(22, GPIO_OPTIONS), 20);
 let oRightWingElevatorServo = new ServoSG90(new Gpio(23, GPIO_OPTIONS), 20);
-let oStabilisatorElevatorServo = new ServoSG90(new Gpio(24, GPIO_OPTIONS), 40);
+let oStabilisatorServo = new ServoSG90(new Gpio(24, GPIO_OPTIONS), 40);
 //let oAirBrakeServo = new ServoSG90(new Gpio(4, GPIO_OPTIONS));
 
 let oMotorCW = new Motor(new Gpio(17, GPIO_OPTIONS));
@@ -172,7 +172,7 @@ wsServer.on('connection', socket => {
         }
 
         if (input.axis === 1) {
-            oStabilisatorElevatorServo.setAngle(parseFloat(input.value));
+            oStabilisatorServo.setAngle(parseFloat(input.value), oStabilisatorServo);
         }
 
         if (input.axis === 6) {
