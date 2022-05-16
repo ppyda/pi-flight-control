@@ -116,7 +116,7 @@ wsServer.on('connection', socket => {
         }
 
         if (input.axis === 6) {
-            let throttle = parseFloat(input.value);
+            let throttle = 1 - parseFloat(input.value);
             Motor1.servoWrite(700 + throttle * 1300);
         }
 
