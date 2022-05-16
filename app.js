@@ -66,21 +66,21 @@ class Motor {
         setTimeout(() => console.log('Starting ESC calibration...'), 900);
 
         // Max throttle 
-        setTimeout(() => this._oGpio.servoWrite(2000), 1000);
+        //setTimeout(() => this._oGpio.servoWrite(2000), 1000);
         setTimeout(() => console.log('Plug in the battery now.'), 1010);
 
         // Min throttle 
-        setTimeout(() => this._oGpio.servoWrite(700), 4000);
+        //setTimeout(() => this._oGpio.servoWrite(700), 4000);
 
         // Stop throttle 
-        setTimeout(() => this._oGpio.servoWrite(0), 7000);
+        //setTimeout(() => this._oGpio.servoWrite(0), 7000);
 
         // Stop throttle 
-        setTimeout(() => this._oGpio.servoWrite(700), 10000);
+        //setTimeout(() => this._oGpio.servoWrite(700), 10000);
 
         // Max throttle 
         // setTimeout(() => this._oGpio.servoWrite(2000), 11000);
-        setTimeout(() => console.log('ESC armed'), 11000);
+        //setTimeout(() => console.log('ESC armed'), 11000);
  
         //this._oGpio.servoWrite(iThrottle);
     }
