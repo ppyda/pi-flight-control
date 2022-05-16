@@ -18,14 +18,8 @@ class ServoSG90 {
         this._oGpio = oGpio;
         this.iAngleRange = iAngleRange;
         this.iNeutralAngleOffset = 0;
-    }
-
-    getMinimumAngle = () => {
-        return -1 * this.iAngleRange;
-    }
-
-    getMaximumAngle = () => {
-        return this.iAngleRange;
+        this.iMinimumAngle = -1 * iAngleRange;
+        this.iMaximumAngle =  1 * iAngleRange;
     }
 
     get getNeutralAngleOffset() {
@@ -39,7 +33,7 @@ class ServoSG90 {
     }
 
     _convertAngleToPwm = (iAngle) => {
-        let iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (getMaximumAngle() - getMinimumAngle()));
+        let iPwm = Math.round(this.MINIMUM_PWM + (this.MAXIMUM_PWM - this.MINIMUM_PWM) * (iAngle + this.iAngleRange) / (this.iMaximumAngle - this.iMinimumAngle));
         //console.log('angle pwm:' + iPwm);
         return iPwm;
     }
