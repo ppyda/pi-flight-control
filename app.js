@@ -37,6 +37,18 @@ let Servo3 = new Gpio(24, {mode: Gpio.OUTPUT});
 
 let Motor1 = new Gpio(17, {mode: Gpio.OUTPUT});
 
+setTimeout(Motor1.servoWrite(2000), 1000);
+setTimeout(console.log('Connect Bettery now'), 1000);
+
+setTimeout(Motor1.servoWrite(700), 3000);
+
+setTimeout(Motor1.servoWrite(0), 6000);
+
+setTimeout(Motor1.servoWrite(700), 9000);
+
+setTimeout(console.log('ESC should be armed now'), 1000);
+
+
 var servo_pwm_pin = 18;
 var pwm_servo_min = 500;
 var pwm_servo_neutral = 1500;
@@ -104,8 +116,8 @@ wsServer.on('connection', socket => {
         }
 
         if (input.axis === 6) {
-            let angle = parseFloat(input.value) * 90;
-            //setAngle(angle);
+            let throttle = parseFloat(input.value);
+            Motor1.servoWrite(700 + throttle * 1300);
         }
 
     });
